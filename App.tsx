@@ -2,31 +2,50 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Login from "./screens/Login";
 import Home from "./screens/Home";
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import Navbar from "./components/Navbar";
+import HomeScreen from "./screens/Home";
+import History from "./screens/History";
+import {FcHome, FcRatings, FcHighPriority} from 'react-icons/fc'
+import PlumbersMenu from "./screens/PlumbersMenu";
+import ElectricianMenuCard from "./components/ElectricianMenuCard";
+import ElectricistMenu from "./screens/ElectricistMenu";
+import LocksmithMenu from "./screens/LocksmithMenu";
+import RegistroUsuario from "./screens/RegistroUsuario";
+import RegistroTrabajador from "./screens/RegistroTrabajador";
+
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+
 
 const MyStack = () => {
   return(
 
       <Stack.Navigator>
-        <Stack.Screen name = "Login" component = {Login} options={{title:'', headerShown: false}}/>
+      
+        {/*<Stack.Screen name = "Login" component = {Login} options={{title:'', headerShown: false}}/>
         <Stack.Screen name = "Home" component = {Home} options={{title:'',headerShown:false}}/>
-      </Stack.Navigator>
+        <Stack.Screen name = "PlumbersMenu" component = {PlumbersMenu} options = {{title:'', headerShown:false}}/>
+        <Stack.Screen name = "ElectricistMenu" component = {ElectricistMenu} options = {{title: '',headerShown:false}}/>
+  <Stack.Screen name = "LocksmithMenu" component = {LocksmithMenu} options = {{title:'', headerShown:false}}/> 
+  <Stack.Screen name  = "RegistroUsuario" component = {RegistroUsuario} options = {{title:'', headerShown:false}}/>*/}
+        <Stack.Screen name = "RegistroTrabajador" component = {RegistroTrabajador} options = {{title:'',headerShown:false}}/>
+
+          
+      </Stack.Navigator> 
 
   )
 }
+
+
 
 function App() {
   return (
 
         <NavigationContainer>
           <MyStack/>
-          
+        
         </NavigationContainer>
    
 

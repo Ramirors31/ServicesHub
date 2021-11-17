@@ -17,7 +17,10 @@ import PlumbersMenuCard from '../components/PlumbersMenuCard';
 import LocksmithMenuCard from '../components/LocksmithMenuCard';
 import ElectricianMenuCard from '../components/ElectricianMenuCard';
 
-const HomeScreen =() => {
+
+const Home = (props) => {
+
+
     let[fontsLoaded, error] = useFonts({
         Inter_100Thin,
         Inter_200ExtraLight,
@@ -35,40 +38,6 @@ const HomeScreen =() => {
         <ElectricianMenuCard/>
         
     </ScrollView>
-    )
-
-}
-
-const Tab = createBottomTabNavigator();
-const MyTabs = () =>{
-    return(
-
-<NavigationContainer independent={true}>
-    <Tab.Navigator>
-        <Tab.Screen name= "Inicio" component = {HomeScreen} options={{headerShown:false,tabBarIcon:FcHome}} />
-        <Tab.Screen name = "Historial" component = {History} options={{headerShown:false,tabBarIcon:FcRatings}}/>
-    </Tab.Navigator>
-</NavigationContainer>
-)
-}
-
-
-const OtherScreen = () => {
-    return(
-    <View style = {styles.container}>
-        <Text>OtherPage</Text>
-        <Text>Mucho mucho texto</Text>
-    </View>
-    )
-}
-
-const Home = () => {
-
-
-    return(
-        <MyTabs/>
-    
-        
     )
 }
 

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     cardImage: {
-        height:'80%',
+        height:'100%',
         width:'33%',
         marginRight:3
     },
