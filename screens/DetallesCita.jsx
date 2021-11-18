@@ -17,7 +17,7 @@ const DetallesCita = () => {
     return (
         <ScrollView>
     <View style = {styles.container}>
-      <Text style = {{fontFamily: 'roboto', fontWeight:'bold', fontSize:32}}>Tu Servicio</Text>
+      <Text style = {{fontWeight:'bold', fontSize:32}}>Tu Servicio</Text>
       <Text style = {styles.informationText}>Servidor:</Text>
       <Text style = {styles.inputText}>Juan Sánchez</Text>
       <Text style = {styles.informationText}>ID Cita</Text>

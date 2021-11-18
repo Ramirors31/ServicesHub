@@ -46,7 +46,7 @@ const RegistroTrabajador = (props) => {
         await updateDoc(workerRef, {
             id_worker:docRef.id
           });
-        clearFields()
+        
     }
 
     const clearFields = () => {

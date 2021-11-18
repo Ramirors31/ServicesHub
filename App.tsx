@@ -16,6 +16,7 @@ import AgendarServicio from "./screens/AgendarServicio";
 import HistorialClientes from "./screens/HistorialClientes";
 import DetallesCita from "./screens/DetallesCita";
 import HomeWorkers from "./screens/HomeWorkers";
+import LoginWorker from "./screens/LoginWorker";
 
 
 const Stack = createNativeStackNavigator();
@@ -26,17 +27,20 @@ const MyStack = () => {
 
       <Stack.Navigator>
     
-      <Stack.Screen name = "Login" component = {Login} options={{title:'', headerShown: false}}/>
+      {/*<Stack.Screen name = "Login" component = {Login} options={{title:'', headerShown: false}}/>
       <Stack.Screen name = "Home" component = {Home} options={{title:'',headerShown:false}}/>
       <Stack.Screen name = "PlumbersMenu" component = {PlumbersMenu} options = {{title:'', headerShown:false}}/>
       <Stack.Screen name = "LocksmithMenu" component = {LocksmithMenu} options = {{title:'', headerShown:false}}/> 
-      <Stack.Screen name  = "RegistroUsuario" component = {RegistroUsuario} options = {{title:'', headerShown:false}}/>
+      />
       <Stack.Screen name = "RegistroTrabajador" component = {RegistroTrabajador} options = {{title:'',headerShown:false}}/> 
       <Stack.Screen name = "ElectricistMenu" component = {ElectricistMenu} options = {{title: '',headerShown:false}}/> 
       <Stack.Screen name = "HistorialClientes" component = {HistorialClientes} options = {{title:'', headerShown:false}}/>
       <Stack.Screen name = "DetallesCita" component = {DetallesCita} options = {{title: '', headerShown:false}}/>
-      <Stack.Screen name = "AgendarServicio" component = {AgendarServicio} options={{title:'', headerShown:false}}/>
+      <Stack.Screen name = "AgendarServicio" component = {AgendarServicio} options={{title:'', headerShown:false}}    
       <Stack.Screen name = "HomeWorkers" component = {HomeWorkers} options = {{title:'',headerShown:false}}/>
+      <Stack.Screen name = "LoginWorker" component = {LoginWorker} options = {{title:'', headerShown:false}}/> */}
+      <Stack.Screen name  = "RegistroUsuario" component = {RegistroUsuario} options = {{title:'', headerShown:false}}
+      />
         
             
       </Stack.Navigator> 

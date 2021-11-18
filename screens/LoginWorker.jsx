@@ -3,7 +3,7 @@ import { View, Text, Button ,StyleSheet,Image,TextInput,TouchableOpacity, Alert}
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
-const Login = (props) => {
+const LoginWorker = (props) => {
 
     //ESTADO PARA CORREO Y CONTRASEÑA
     const[email,setEmail] = useState('')
@@ -29,7 +29,7 @@ const Login = (props) => {
         .then((userCredential) => {
     // Signed in
     const user = userCredential.user;
-    props.navigation.navigate("Home")
+    props.navigation.navigate("HomeWorkers")
     // ...
   })
   .catch((error) => {
@@ -51,11 +51,11 @@ const Login = (props) => {
             <TouchableOpacity style={styles.button} onPress={login}> 
                 <Text style={{color:"#ffff", fontSize:18}}>INICIAR SESION</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress = {()=> props.navigation.navigate("RegistroUsuario")}>
+            <TouchableOpacity style={styles.button} onPress = {()=> props.navigation.navigate("RegistroTrabajador")}>
                 <Text style={{color:"#ffff", fontSize:18}}>REGISTRARSE</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress = {()=> props.navigation.navigate("LoginWorker")}>
-                <Text style={{color:"#ffff", fontSize:18}}>INICIAR COMO TRABAJADOR</Text>
+            <TouchableOpacity style={styles.button} onPress = {()=> props.navigation.navigate("Login")}>
+                <Text style={{color:"#ffff", fontSize:18}}>INICIAR COMO USUARIO</Text>
             </TouchableOpacity>
         </View>
     )
@@ -102,5 +102,5 @@ const styles = StyleSheet.create({
 
 })
 
-export default Login
+export default LoginWorker
 

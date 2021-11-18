@@ -3,7 +3,7 @@ import { View, Text,Button, StyleSheet, TextInput,Image, ScrollView, Alert } fro
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { useState } from 'react'
 const AgendarServicio = () => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
@@ -24,8 +24,16 @@ const AgendarServicio = () => {
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
 
+    let tempDate = new Date(currentDate)
+    let fDate = tempDate.getDate() +  (tempDate.getMonth() + 1)  + tempDate.getFullYear();
+    let fTime = tempDate.getHours() + ':' + tempDate.getMinutes()
+    fDate.toString()
+    console.log(fDate)
 
-    console.log(date.getDay)
+
+
+
+    console.log(date)
   };
 
   const showMode = (currentMode) => {
@@ -61,15 +69,17 @@ const AgendarServicio = () => {
         <TextInput onFocus={showDatepicker}
          placeholder="17/11/2021" 
          style = {styles.inputText}
-         
-         showSoftInputOnFocus={false}/>
+         value = {"Hola"}
+         showSoftInputOnFocus={false}
+         />
          <Text style = {styles.informationText}>Seleccione una hora </Text>
   
         <TextInput onFocus={showTimepicker}
          placeholder="13:00" 
          style = {styles.inputText}
          showSoftInputOnFocus={false}
-         is24Hour = {true}/>
+         is24Hour = {true}
+         />
 
         <Text style = {styles.informationText}>Especifique Su Dirección</Text>
   
@@ -77,6 +87,8 @@ const AgendarServicio = () => {
         placeholder="Av. Las Puentes 512 San Nicolás de los Garza" 
         style = {styles.inputText}
         />
+
+
         <View style = {styles.btn}>
         <Button
         color = "#1bb2d1"

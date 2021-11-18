@@ -1,8 +1,111 @@
-import React from 'react'
-import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Image } from 'react-native'
+import React, { useState} from 'react'
+import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Image, Alert } from 'react-native'
 import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {db} from '../database/firebase'
 
 const RegistroUsuario = (props) => {
+
+
+    //Take the inputs
+    const [userInfo,setUserInfo] = useState( {
+        name:'',
+        email:'',
+        phone:'',
+        address:'',
+        password:'',
+        passwordConf:'',
+        
+    }) 
+
+    const manageButton = () =>{
+        handlesSingUp()
+        addUser()
+        clearFields()
+        registrarUsuario()
+        registroExitoso()
+    }
+
+    const addUser = async () => {
+
+        const docRef = await addDoc(collection(db, "user"), {
+
+        nombre_user: userInfo.name,
+        telefono_user: userInfo.phone,
+        email_user: userInfo.email,
+        password_user: userInfo.password,
+        direccion_user:userInfo.address
+
+        });
+    }
+
+    const clearFields = () => {
+        setUserInfo({...userInfo,department:'',
+        address:'',
+        email:'',
+        password:'',
+        passwordConf:'',
+        phone:'',
+        price:'',
+        name:''
+    })
+    }
+
+
+        //REGISTRAR USUARIO CON FIREBASE AUTH
+        const registrarUsuario = () => {
+            const auth = getAuth();
+    createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+        }
+    
+        //ALERTA DE REGISTRO
+        const registroExitoso = () =>
+        Alert.alert(
+          "Bienvenido!!",
+          "Has Sido Registrado Exitosamente",
+          [
+      
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ]
+        );
+
+
+    const handlesSingUp = () => {
+
+        if(userInfo.name == '' && userInfo.email == '' 
+        && userInfo.phone == '' && userInfo.pass == ''
+        && userInfo.confPass == ''){
+            alert('Debes llenar todos los campos')
+        }else if (userInfo.email == '' || !userInfo.email.includes('@') || !userInfo.email.includes(".")){
+            alert('No email valid, verifica que sea un correo valido\nexample@hub.com')
+        }else if (userInfo.name == ''){
+            alert('No name')
+        }else if (userInfo.phone == ''){
+            alert('No phone')
+        }else if (userInfo.pass == ''){
+            alert('No password')
+        }else if ( userInfo.confPass == ''){
+            alert('No password confirmation')
+        }else{
+            if (userInfo.pass == userInfo.confPass){
+                console.log(userInfo)
+            }else{
+                alert('La contraseña de confirmacion no coindide\nPor favor verificalo')
+            }
+        }
+    }
+
     return (
         <View style = {styles.container}>
             <TipoRegistroSelecter navigation = {props.navigation}/>
@@ -14,27 +117,44 @@ const RegistroUsuario = (props) => {
 
                 <TextInput 
                 placeholder= "Correo Electrónico"
-                style = {styles.input}/>
+                style = {styles.input}
+                value = {userInfo.email}
+                onChangeText = {text => setUserInfo({...userInfo,email:text})}
+                keyboardType = 'email-address'
+                />
 
                 <TextInput 
                 placeholder= "Nombre"
-                style = {styles.input}/>
+                style = {styles.input}
+                value = {userInfo.name}
+                onChangeText = {text => setUserInfo({...userInfo,name:text})}/>
 
                 <TextInput
                 placeholder = "Celular"
-                style = {styles.input}/>
+                style = {styles.input}
+                value = {userInfo.phone}
+                onChangeText = {text => setUserInfo({...userInfo,phone:text})}
+                keyboardType = "phone-pad"
+                maxLength={10}/>
 
                 <TextInput
                 style = {styles.input}
-                placeholder = "Contraseña"/>
+                placeholder = "Contraseña"
+                secureTextEntry = {true}
+                value = {userInfo.password}
+                onChangeText = {text => setUserInfo({...userInfo,password:text})}/>
             
                 <TextInput
                 style = {styles.input}
-                placeholder = "Confirmar Contraseña"/>
+                placeholder = "Confirmar Contraseña"
+                secureTextEntry = {true}
+                value = {userInfo.passwordConf}
+                onChangeText = {text => setUserInfo({...userInfo,passwordConf:text})}/>
 
                 <TouchableOpacity
                 title = "Registrarse"
                 style = {styles.button}
+                onPress={manageButton}
                  >
                     <Text style={{fontSize:26,
                     alignSelf:'center',
