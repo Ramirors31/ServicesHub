@@ -2,7 +2,7 @@ import React, { useState} from 'react'
 import { View, Text, StyleSheet, TextInput, Button, Image, ScrollView, TouchableOpacity,Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
-import { doc,setDoc,addDoc,collection } from '@firebase/firestore'
+import { doc,setDoc,addDoc,collection,updateDoc} from '@firebase/firestore'
 import {db} from '../database/firebase'
 
 
@@ -34,8 +34,11 @@ const RegistroTrabajador = (props) => {
         precio_worker:worker.price,
         direccion_worker:worker.address
         });
+        const washingtonRef = doc(db, "worker", docRef.id)
         console.log("Document written with ID: ", docRef.id);
-        docRef
+        await updateDoc(washingtonRef, {
+            id_worker:docRef.id
+          });
     }
 
     //ALERTA DE REGISTRO
