@@ -20,7 +20,11 @@ const RegistroTrabajador = (props) => {
         
     })
 
-    
+    const manageButton = () =>{
+        addWorker()
+        clearFields()
+        registroExitoso()
+    }
 
     const addWorker = async () => {
 
@@ -39,13 +43,26 @@ const RegistroTrabajador = (props) => {
         await updateDoc(washingtonRef, {
             id_worker:docRef.id
           });
+        clearFields()
+    }
+
+    const clearFields = () => {
+        setWorker({...worker,department:'',
+        address:'',
+        email:'',
+        worker,password:'',
+        worker,passwordConf:'',
+        worker,phone:'',
+        worker,price:'',
+        worker,name:''
+    })
     }
 
     //ALERTA DE REGISTRO
-    const createAlert = () =>
+    const registroExitoso = () =>
     Alert.alert(
-      "Algo Salió Mal",
-      "Verifique su número telefónico, este debería constar de 10 dígitos",
+      "Bienvenido!!",
+      "Has Sido Registrado Exitosamente",
       [
   
         { text: "OK", onPress: () => console.log("OK Pressed") }
@@ -75,47 +92,54 @@ const RegistroTrabajador = (props) => {
                 <TextInput 
                 placeholder= "Nombre"
                 style = {styles.input}
-                onChangeText = {(text) =>setWorker({...worker,name:text})}/>
+                onChangeText = {(text) =>setWorker({...worker,name:text})}
+                value={worker.name}/>
 
                 <TextInput
                 placeholder = "Correo Electrónico"
                 style = {styles.input}
-                onChangeText = {(text) =>setWorker({...worker,email:text})}/>
+                onChangeText = {(text) =>setWorker({...worker,email:text})}
+                value={worker.email}/>
 
                 <TextInput
                 style = {styles.input}
                 placeholder = "Teléfono"
                 onChangeText = {(text) =>setWorker({...worker,phone:text})}
-                keyboardType = 'numeric'/>
+                keyboardType = 'numeric'
+                value = {worker.phone}/>
             
                 <TextInput
                 style = {styles.input}
                 placeholder = "Dirección Laboral"
-                onChangeText = {(text) =>setWorker({...worker,address:text})}/>
+                onChangeText = {(text) =>setWorker({...worker,address:text})}
+                value={worker.address}/>
 
                 <TextInput
                 style = {styles.input}
                 placeholder = "Precio Base Servicio"
                 keyboardType = 'numeric'
-                onChangeText = {(text) =>setWorker({...worker,price:text})}/>
-
+                onChangeText = {(text) =>setWorker({...worker,price:text})}
+                value={worker.price}/>
+                
                 <TextInput 
                 placeholder= "Contraseña"
                 style = {styles.input}
                 onChangeText = {(text) =>setWorker({...worker,password:text})}
-                secureTextEntry = {true}/>
+                secureTextEntry = {true}
+                value={worker.password}/>
 
                 <TextInput 
                 placeholder= "Confirmar Contraseña"
                 style = {styles.input}
                 onChangeText = {(text) =>setWorker({...worker,passwordConf:text})}
-                secureTextEntry = {true}/>
+                secureTextEntry = {true}
+                value={worker.passwordConf}/>
 
                 <TouchableOpacity  >
                 <Button title ="Registrarse"
                 color = "#1bb2d1"
                 style={{height:100}}
-                onPress = {addWorker}
+                onPress = {manageButton}
                 
                 
                
