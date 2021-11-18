@@ -1,23 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, Button ,StyleSheet,Image,TextInput,TouchableOpacity, Alert} from 'react-native';
-import { 
-    Inter_100Thin,
-    Inter_200ExtraLight,
-    Inter_300Light,Inter_400Regular,Inter_500Medium,Inter_600SemiBold,Inter_700Bold,Inter_800ExtraBold,Inter_900Black 
-  } from '@expo-google-fonts/inter'
-import { useFonts } from '@expo-google-fonts/andika';
-import AppLoading from 'expo-app-loading';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 
 const Login = (props) => {
-    let[fontsLoaded, error] = useFonts({
-        Inter_100Thin,
-        Inter_200ExtraLight,
-        Inter_300Light,Inter_400Regular,Inter_500Medium,Inter_600SemiBold,Inter_700Bold,Inter_800ExtraBold,Inter_900Black
-    });
 
-    if(!fontsLoaded){
-        return <AppLoading/>
-    }
+    //ESTADO PARA CORREO Y CONTRASEÑA
+    const[email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    
+    
 
     //ALERTA PARA LOGIN FALLIDO
     const createAlert = () =>
@@ -30,19 +22,36 @@ const Login = (props) => {
       ]
     );
 
+    //AUTENTIFICACION DE USUARIO
+    const login = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    props.navigation.navigate("Home")
+    // ...
+  })
+  .catch((error) => {
+    createAlert()
+  });
+}
+
     return ( 
         <View style = {styles.container}>
             <Text style = {{fontWeight:'bold',fontSize:22,marginBottom:40,marginTop:50}}>Bienvenido a Service Hub</Text>
             <Image
             style= {styles.logo}
             source = {require('../assets/icon-handyman.png')}/>
-            <TextInput placeholder = {"ejemplo@gmail.com"} style = {styles.input}/>
+            <TextInput placeholder = {"ejemplo@gmail.com"} style = {styles.input}
+            onChangeText = {(text) =>setEmail(text)}/>
             <TextInput placeholder = {"*********"} style = {styles.input}
-            secureTextEntry={true}/>
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Home')}> 
+            secureTextEntry={true}
+            onChangeText = {(text) =>setPassword(text)}/>
+            <TouchableOpacity style={styles.button} onPress={login}> 
                 <Text style={{color:"#ffff", fontSize:18}}>INICIAR SESION</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress = {() => props.navigation.navigate("RegistroUsuario")}>
+            <TouchableOpacity style={styles.button} onPress = {()=> props.navigation.navigate("RegistroUsuario")}>
                 <Text style={{color:"#ffff", fontSize:18}}>REGISTRARSE</Text>
             </TouchableOpacity>
         </View>

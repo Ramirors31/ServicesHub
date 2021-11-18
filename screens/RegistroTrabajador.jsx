@@ -4,10 +4,13 @@ import { Picker } from '@react-native-picker/picker'
 import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
 import { doc,setDoc,addDoc,collection,updateDoc} from '@firebase/firestore'
 import {db} from '../database/firebase'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 
 
 const RegistroTrabajador = (props) => {
+    //GUARDAMOS DATOS DEL TRABAJADOR EN EL ESTADO
     const [worker,setWorker] = useState( {
         name:'',
         department: 'Plomeria',
@@ -23,6 +26,7 @@ const RegistroTrabajador = (props) => {
     const manageButton = () =>{
         addWorker()
         clearFields()
+        registrarUsuario()
         registroExitoso()
     }
 
@@ -38,9 +42,8 @@ const RegistroTrabajador = (props) => {
         precio_worker:worker.price,
         direccion_worker:worker.address
         });
-        const washingtonRef = doc(db, "worker", docRef.id)
-        console.log("Document written with ID: ", docRef.id);
-        await updateDoc(washingtonRef, {
+        const workerRef = doc(db, "worker", docRef.id)
+        await updateDoc(workerRef, {
             id_worker:docRef.id
           });
         clearFields()
@@ -56,6 +59,23 @@ const RegistroTrabajador = (props) => {
         worker,price:'',
         worker,name:''
     })
+    }
+
+    //REGISTRAR USUARIO CON FIREBASE AUTH
+    const registrarUsuario = () => {
+        const auth = getAuth();
+createUserWithEmailAndPassword(auth, worker.email, worker.password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
     }
 
     //ALERTA DE REGISTRO
@@ -141,8 +161,6 @@ const RegistroTrabajador = (props) => {
                 style={{height:100}}
                 onPress = {manageButton}
                 
-                
-               
                 />
                 </TouchableOpacity>
 
