@@ -1,7 +1,19 @@
 import React from 'react'
-import { View, Text, StyleSheet,ScrollView,TextInput,Button } from 'react-native'
+import { View, Text, StyleSheet,ScrollView,TextInput,Button,Alert } from 'react-native'
 
 const DetallesCita = () => {
+
+  const createAlert = () =>
+  Alert.alert(
+    "Atencion",
+    "¿Seguro que deseas cancelar esta cita?",
+    [
+
+      { text: "Cancelar", onPress: () => console.log("OK Pressed") },
+
+      { text: "Confirmar", onPress: () => console.log("OK Pressed") }
+    ]
+  );
     return (
         <ScrollView>
     <View style = {styles.container}>
@@ -49,7 +61,8 @@ const DetallesCita = () => {
   />
           <Button
         color = "#1bb2d1"
-        title = 'Cancelar Cita'/>
+        title = 'Cancelar Cita'
+        onPress = {createAlert}/>
 
 
     </View>

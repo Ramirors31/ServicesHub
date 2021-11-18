@@ -7,6 +7,18 @@ const AgendarServicio = () => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
+  const createAlert = () =>
+  Alert.alert(
+    "Algo Salió Mal",
+    "Debes llenar todos los campos solicitados para contratar el servicio",
+    [
+
+      { text: "Cancelar", onPress: () => console.log("OK Pressed") },
+
+      { text: "Confirmar", onPress: () => console.log("OK Pressed") }
+    ]
+  );
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
@@ -29,21 +41,11 @@ const AgendarServicio = () => {
     showMode('time');
   };
 
-  //ALERT BUTTON
-  const createAlert = () =>
-  Alert.alert(
-    "Algo Salió Mal",
-    "Verifica los datos para inicio de sesion, si no tienes una cuenta registrate aquí",
-    [
-
-      { text: "OK", onPress: () => console.log("OK Pressed") }
-    ]
-  );
 
   return (
   <ScrollView>
     <View style = {styles.container}>
-      <Text style = {{fontFamily: 'roboto', fontWeight:'bold', fontSize:32, alignSelf:'center'}}>Agenda tu Servicio</Text>
+      <Text style = {{ fontWeight:'bold', fontSize:32, alignSelf:'center'}}>Agenda tu Servicio</Text>
       <Image
       source = {require('../assets/icono-calendario.png')}
       style = {styles.image}/>
@@ -78,7 +80,8 @@ const AgendarServicio = () => {
         <View style = {styles.btn}>
         <Button
         color = "#1bb2d1"
-        title = 'Agendar'/>
+        title = 'Agendar'
+        onPress = {createAlert}/>
         </View>
 
       {show && (

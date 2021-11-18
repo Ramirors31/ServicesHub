@@ -25,7 +25,7 @@ const ServiceCard = (props) => {
         <View style={styles.cardContainer}>
             <View style = {styles.informationContainer}>
                 <Text style = {{fontFamily :'Intern_700Bold' ,fontSize:24, marginBottom:5}}>Jose Suarez</Text>
-                <Text style = {{fontFamily: 'Inter_400Regular', marginBottom: 5}}>Plomeria</Text>
+                <Text style = {{fontFamily: 'Inter_400Regular', marginBottom: 5}}>Av. Las puentes #200</Text>
                 <Text style = {{fontFamily: 'Inter_400Regular', marginBottom:5}}>Estado: Pendiente </Text>
                 <Button title = "Ver Detalles" 
                 color = '#20f26f'
@@ -33,7 +33,7 @@ const ServiceCard = (props) => {
             </View>   
             <View style={{justifyContent:'center',width:'50%'}}>
 
-            <Text style={{fontFamily:'roboto', alignSelf:'center',marginRight:5,fontWeight:'bold',fontSize:18}}>$250</Text>
+            <Text style={{fontFamily:'roboto', alignSelf:'center',marginRight:5,fontWeight:'bold',fontSize:18}}>$300</Text>
             </View>
         </View>
     

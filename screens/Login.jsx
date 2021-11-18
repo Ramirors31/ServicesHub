@@ -42,7 +42,7 @@ const Login = (props) => {
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Home')}> 
                 <Text style={{color:"#ffff", fontSize:18}}>INICIAR SESION</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress = {createAlert }>
+            <TouchableOpacity style={styles.button} onPress = {() => props.navigation.navigate("RegistroUsuario")}>
                 <Text style={{color:"#ffff", fontSize:18}}>REGISTRARSE</Text>
             </TouchableOpacity>
         </View>

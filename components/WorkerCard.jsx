@@ -25,8 +25,8 @@ const WorkerCard = (props) => {
         <View style={styles.cardContainer}>
             <View style = {styles.informationContainer}>
                 <Text style = {{fontWeight:'bold',fontSize:24, marginBottom:5}}>Jose Suarez</Text>
-                <Text style = {{marginBottom: 5}}>Ubicacion: Av Los Angeles #1204 San Nicolás de los Garza, Nuevo León</Text>
-                <Text style = {{ marginBottom:5}}>Contacto: 8281059217</Text>
+                <Text style = {{marginBottom: 5}}>Av Los Angeles #1204 San Nicolás de los Garza, Nuevo León</Text>
+                <Text style = {{ marginBottom:5}}> 8281059217</Text>
                 <Button title = "Agendar Servicio" 
                 color = '#20f26f'
                 onPress={()=> props.navigation.navigate('AgendarServicio')}/> 

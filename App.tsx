@@ -15,6 +15,7 @@ import RegistroTrabajador from "./screens/RegistroTrabajador";
 import AgendarServicio from "./screens/AgendarServicio";
 import HistorialClientes from "./screens/HistorialClientes";
 import DetallesCita from "./screens/DetallesCita";
+import HomeWorkers from "./screens/HomeWorkers";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +25,7 @@ const MyStack = () => {
   return(
 
       <Stack.Navigator>
-      
+    
       <Stack.Screen name = "Login" component = {Login} options={{title:'', headerShown: false}}/>
       <Stack.Screen name = "Home" component = {Home} options={{title:'',headerShown:false}}/>
       <Stack.Screen name = "PlumbersMenu" component = {PlumbersMenu} options = {{title:'', headerShown:false}}/>
@@ -35,9 +36,9 @@ const MyStack = () => {
       <Stack.Screen name = "HistorialClientes" component = {HistorialClientes} options = {{title:'', headerShown:false}}/>
       <Stack.Screen name = "DetallesCita" component = {DetallesCita} options = {{title: '', headerShown:false}}/>
       <Stack.Screen name = "AgendarServicio" component = {AgendarServicio} options={{title:'', headerShown:false}}/>
+      <Stack.Screen name = "HomeWorkers" component = {HomeWorkers} options = {{title:'',headerShown:false}}/>
         
-              
-          
+            
       </Stack.Navigator> 
 
   )

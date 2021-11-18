@@ -1,5 +1,6 @@
 import React, { useState} from 'react'
-import { View, Text, StyleSheet, TextInput, Button, Image, Picker, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Image, ScrollView, TouchableOpacity,Alert } from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
 import { doc,setDoc } from '@firebase/firestore'
 import {db} from '../database/firebase'
@@ -9,6 +10,7 @@ import {db} from '../database/firebase'
 const RegistroTrabajador = (props) => {
     const [worker,setWorker] = useState( {
         name:'',
+        department: '',
         email:'',
         phone:'',
         address:'',
@@ -17,14 +19,27 @@ const RegistroTrabajador = (props) => {
         passwordConf:''
     })
 
+    
+
     const addWorker = async () => {
 
-        await setDoc(doc(db, "trabajadores"), {
-            nombre: worker.name,
-            state: "CA",
-            country: "USA"
-          });
+        const docRef = await addDoc(collection(db, "cities"), {
+        name: "Tokyo",
+        country: "Japan"
+        });
+        console.log("Document written with ID: ", docRef.id);
     }
+
+    //ALERTA DE REGISTRO
+    const createAlert = () =>
+    Alert.alert(
+      "Algo Salió Mal",
+      "Verifique su número telefónico, este debería constar de 10 dígitos",
+      [
+  
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
 
     return (
         <View style = {styles.container}>
@@ -37,7 +52,9 @@ const RegistroTrabajador = (props) => {
             style = {styles.imagen}/>
 
                 <Picker
-                style={styles.picker}>
+                style={styles.picker}
+                selectedValue = {worker.department}
+                onValueChange = {(value,index) => setWorker({...worker,department:value})}>
                     <Picker.Item label = "Plomeria" value = "Plomeria"/>
                     <Picker.Item label = "Electricidad" value = "Electricidad"/>
                     <Picker.Item label = "Cerrajería" value = "Cerrajería"/>
@@ -73,18 +90,21 @@ const RegistroTrabajador = (props) => {
                 <TextInput 
                 placeholder= "Contraseña"
                 style = {styles.input}
-                onChangeText = {(text) =>setWorker({...worker,password:text})}/>
+                onChangeText = {(text) =>setWorker({...worker,password:text})}
+                secureTextEntry = {true}/>
 
                 <TextInput 
                 placeholder= "Confirmar Contraseña"
                 style = {styles.input}
-                onChangeText = {(text) =>setWorker({...worker,passwordConf:text})}/>
+                onChangeText = {(text) =>setWorker({...worker,passwordConf:text})}
+                secureTextEntry = {true}/>
 
                 <TouchableOpacity  >
                 <Button title ="Registrarse"
                 color = "#1bb2d1"
                 style={{height:100}}
-                onPress={addWorker}
+                onPress = {addWorker}
+                
                 
                
                 />
