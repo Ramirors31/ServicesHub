@@ -2,7 +2,7 @@ import React, { useState} from 'react'
 import { View, Text, StyleSheet, TextInput, Button, Image, ScrollView, TouchableOpacity,Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
-import { doc,setDoc } from '@firebase/firestore'
+import { doc,setDoc,addDoc,collection } from '@firebase/firestore'
 import {db} from '../database/firebase'
 
 
@@ -10,24 +10,32 @@ import {db} from '../database/firebase'
 const RegistroTrabajador = (props) => {
     const [worker,setWorker] = useState( {
         name:'',
-        department: '',
+        department: 'Plomeria',
         email:'',
         phone:'',
         address:'',
         price:'',
         password:'',
-        passwordConf:''
+        passwordConf:'',
+        
     })
 
     
 
     const addWorker = async () => {
 
-        const docRef = await addDoc(collection(db, "cities"), {
-        name: "Tokyo",
-        country: "Japan"
+        const docRef = await addDoc(collection(db, "worker"), {
+
+        nombre_worker: worker.name,
+        telefono_worker: worker.phone,
+        email_worker: worker.email,
+        password_worker: worker.password,
+        servicio_id:worker.department,
+        precio_worker:worker.price,
+        direccion_worker:worker.address
         });
         console.log("Document written with ID: ", docRef.id);
+        docRef
     }
 
     //ALERTA DE REGISTRO
@@ -74,7 +82,8 @@ const RegistroTrabajador = (props) => {
                 <TextInput
                 style = {styles.input}
                 placeholder = "Teléfono"
-                onChangeText = {(text) =>setWorker({...worker,phone:text})}/>
+                onChangeText = {(text) =>setWorker({...worker,phone:text})}
+                keyboardType = 'numeric'/>
             
                 <TextInput
                 style = {styles.input}
