@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import {FcHome, FcRatings, FcHighPriority} from 'react-icons/fc'
 
 
-const Navbar = (props) => {
+const TipoRegistroSelecter = (props) => {
     return(
             <View style = {styles.navcontainer}>
-                <TouchableOpacity style={styles.btn} onPress = {()=> props.navigation.navigate("Home")}> 
-                    <Text style={{alignSelf:'center',fontWeight:'bold'}}> Inicio</Text>
+                <TouchableOpacity style={styles.btn} onPress = {()=> props.navigation.navigate("RegistroUsuario")}> 
+                    <Text style={{alignSelf:'center',fontWeight:'bold'}}> Usuario</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn} onPress = {() => props.navigation.navigate("HistorialClientes")}> 
-                    <Text style={{alignSelf:'center',fontWeight:'bold'}}> Historial</Text>
+                <TouchableOpacity style={styles.btn} onPress = {() => props.navigation.navigate("RegistroTrabajador")}> 
+                    <Text style={{alignSelf:'center',fontWeight:'bold'}}> Trabajador</Text>
                 </TouchableOpacity>
             </View>
     )
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Navbar
+export default TipoRegistroSelecter

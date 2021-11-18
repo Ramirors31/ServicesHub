@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Button ,StyleSheet,Image,TextInput,TouchableOpacity} from 'react-native';
+import { View, Text, Button ,StyleSheet,Image,TextInput,TouchableOpacity, Alert} from 'react-native';
 import { 
     Inter_100Thin,
     Inter_200ExtraLight,
@@ -19,19 +19,30 @@ const Login = (props) => {
         return <AppLoading/>
     }
 
+    //ALERTA PARA LOGIN FALLIDO
+    const createAlert = () =>
+    Alert.alert(
+      "Algo Salió Mal",
+      "Verifica los datos para inicio de sesion, si no tienes una cuenta registrate aquí",
+      [
+  
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
 
     return ( 
         <View style = {styles.container}>
-            <Text style = {{fontFamily:'Inter_600SemiBold',fontSize:22,marginBottom:40,marginTop:50}}>Bienvenido a Service Hub</Text>
+            <Text style = {{fontWeight:'bold',fontSize:22,marginBottom:40,marginTop:50}}>Bienvenido a Service Hub</Text>
             <Image
             style= {styles.logo}
             source = {require('../assets/icon-handyman.png')}/>
             <TextInput placeholder = {"ejemplo@gmail.com"} style = {styles.input}/>
-            <TextInput placeholder = {"*********"} style = {styles.input}/>
+            <TextInput placeholder = {"*********"} style = {styles.input}
+            secureTextEntry={true}/>
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Home')}> 
                 <Text style={{color:"#ffff", fontSize:18}}>INICIAR SESION</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress = {createAlert }>
                 <Text style={{color:"#ffff", fontSize:18}}>REGISTRARSE</Text>
             </TouchableOpacity>
         </View>
@@ -40,7 +51,6 @@ const Login = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
         marginTop:5,
         flex:1,
         alignItems:'center',

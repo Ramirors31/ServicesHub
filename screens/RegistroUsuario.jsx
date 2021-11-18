@@ -1,26 +1,28 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Image } from 'react-native'
+import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
 
-const RegistroUsuario = () => {
+const RegistroUsuario = (props) => {
     return (
         <View style = {styles.container}>
+            <TipoRegistroSelecter navigation = {props.navigation}/>
             <Text style = {{fontSize: 46, alignSelf: 'center'}}>Registro</Text>
 
             <Image
             source =  {require('../assets/icono-registro.png')}
             style = {styles.imagen}/>
 
-
                 <TextInput 
                 placeholder= "Correo Electrónico"
                 style = {styles.input}/>
 
-           
+                <TextInput 
+                placeholder= "Nombre"
+                style = {styles.input}/>
+
                 <TextInput
                 placeholder = "Celular"
                 style = {styles.input}/>
-
-     
 
                 <TextInput
                 style = {styles.input}
@@ -34,14 +36,12 @@ const RegistroUsuario = () => {
                 title = "Registrarse"
                 style = {styles.button}
                  >
-                     <Text style={{fontSize:26,
+                    <Text style={{fontSize:26,
                     alignSelf:'center',
                     color:'white',
                     }}>REGISTRARSE</Text>
                 </TouchableOpacity>
 
-             
-            
         </View>
     )
 }
@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
         padding: 5,
         borderColor: 'black',
         borderBottomWidth: 1,
-        marginBottom:10,
+        marginBottom:20,
         
-        width:'90%',
+        width:'100%',
         height:40,
         alignSelf: 'center',
         fontSize:23

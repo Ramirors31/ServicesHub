@@ -21,11 +21,12 @@ const PlumbersMenuCard = (props) => {
     }
 
     return (
-        <TouchableOpacity style={styles.cardContainer} onPress = { () => props.navigation.navigate("PlumbersMenu")}>
+        <TouchableOpacity style={styles.cardContainer} onPress={() => props.navigation.navigate('PlumbersMenu')}>
+            
             <Image source= {require('../assets/icon-plumbering.png')} style = {styles.cardImage}/>
             <View style={styles.cardInfo}>
                 <Text style = {styles.infoText}>Plomeria.</Text>
-                <Text style = {styles.infoText}>3 Plomeros disponibles</Text>
+                <Text style = {{fontSize:12,fontWeight:'bold'}}>3  disponibles</Text>
             </View>
         </TouchableOpacity>
     )
@@ -45,9 +46,10 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     cardImage: {
-        height:'100%',
-        width:'33%',
-        marginRight:3
+        height:'80%',
+        width:'30%',
+        marginRight:3,
+        marginLeft:3,
     },
     cardInfo:{
         display:'flex',

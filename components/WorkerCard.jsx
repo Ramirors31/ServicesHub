@@ -8,6 +8,7 @@ import {
 import { useFonts } from '@expo-google-fonts/andika';
 import AppLoading from 'expo-app-loading';
 
+
 const WorkerCard = (props) => {
 
     let[fontsLoaded, error] = useFonts({
@@ -22,19 +23,18 @@ const WorkerCard = (props) => {
 
     return (
         <View style={styles.cardContainer}>
-            <Image source= {require('../assets/icon-plumber.png')} style = {styles.cardImage}/>
             <View style = {styles.informationContainer}>
-            <Text style = {{fontFamily :'Intern_600SemiBold' ,fontSize:20, marginBottom:5}}>Jose Suarez</Text>
-            <Text style = {{fontFamily: 'Inter_400Regular', marginBottom: 5}}>Ubicacion: Av Los Angeles #1204 San Nicolás de los Garza, Nuevo León</Text>
-            <Text style = {{fontFamily: 'Inter_400Regular', marginBottom:5}}>Contacto: 8281059217</Text>
-            <Button title = "Agendar Servicio" 
-            color = '#20f26f'/> 
-
-
-            </View>
+                <Text style = {{fontWeight:'bold',fontSize:24, marginBottom:5}}>Jose Suarez</Text>
+                <Text style = {{marginBottom: 5}}>Ubicacion: Av Los Angeles #1204 San Nicolás de los Garza, Nuevo León</Text>
+                <Text style = {{ marginBottom:5}}>Contacto: 8281059217</Text>
+                <Button title = "Agendar Servicio" 
+                color = '#20f26f'
+                onPress={()=> props.navigation.navigate('AgendarServicio')}/> 
+            </View>          
+            <Text style={{fontWeight:'bold',alignSelf:'center'}}>Precio Base: $250</Text>
         </View>
-    )
-}
+    
+    )}
 
 const styles = StyleSheet.create({
     cardContainer: {
@@ -43,10 +43,9 @@ const styles = StyleSheet.create({
         display:'flex',
         flexDirection:'row',
         fontFamily:'Inter_400Regular',
+        alignSelf:'center',
         padding:5,
-        marginLeft: 5,
-        marginRight: 5,
-        marginTop:10,
+        margin:10,
         borderRadius: 10,
         
     },
@@ -61,7 +60,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         width: 300,
-        flexWrap: 'wrap'
+        
+        width:'60%'
     }
 })
 

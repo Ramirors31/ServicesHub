@@ -8,7 +8,7 @@ import {
 import { useFonts } from '@expo-google-fonts/andika';
 import AppLoading from 'expo-app-loading';
 
-const ElectricianMenuCard = () => {
+const ElectricianMenuCard = (props) => {
 
     let[fontsLoaded, error] = useFonts({
         Inter_100Thin,
@@ -21,11 +21,11 @@ const ElectricianMenuCard = () => {
     }
 
     return (
-        <TouchableOpacity style={styles.cardContainer}>
+        <TouchableOpacity style={styles.cardContainer} onPress = {()=>props.navigation.navigate('ElectricistMenu')}>
             <Image source= {require('../assets/icon-electrical.png')} style = {styles.cardImage}/>
             <View style={styles.cardInfo}>
                 <Text style = {styles.infoText}>Electricistas.</Text>
-                <Text style = {styles.infoText}>3 Electricistas disponibles</Text>
+                <Text style = {{fontSize:12,fontWeight:'bold'}}>3  disponibles</Text>
             </View>
         </TouchableOpacity>
     )
@@ -45,9 +45,10 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     cardImage: {
-        height:'100%',
-        width:'33%',
-        marginRight:3
+        height:'80%',
+        width:'30%',
+        marginRight:3,
+        marginLeft:3,
     },
     cardInfo:{
         display:'flex',

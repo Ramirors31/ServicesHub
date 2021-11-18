@@ -1,9 +1,35 @@
-import React from 'react'
-import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Image, Picker } from 'react-native'
+import React, { useState} from 'react'
+import { View, Text, StyleSheet, TextInput, Button, Image, Picker, ScrollView, TouchableOpacity } from 'react-native'
+import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
+import { doc,setDoc } from '@firebase/firestore'
+import {db} from '../database/firebase'
 
-const RegistroTrabajador = () => {
+
+
+const RegistroTrabajador = (props) => {
+    const [worker,setWorker] = useState( {
+        name:'',
+        email:'',
+        phone:'',
+        address:'',
+        price:'',
+        password:'',
+        passwordConf:''
+    })
+
+    const addWorker = async () => {
+
+        await setDoc(doc(db, "trabajadores"), {
+            nombre: worker.name,
+            state: "CA",
+            country: "USA"
+          });
+    }
+
     return (
         <View style = {styles.container}>
+            <ScrollView>
+            <TipoRegistroSelecter navigation = {props.navigation}/>
             <Text style = {{fontSize: 42, alignSelf: 'center'}}>Registro Trabajador</Text>
 
             <Image
@@ -20,44 +46,51 @@ const RegistroTrabajador = () => {
 
                 <TextInput 
                 placeholder= "Nombre"
-                style = {styles.input}/>
+                style = {styles.input}
+                onChangeText = {(text) =>setWorker({...worker,name:text})}/>
 
-
-
-
-
-           
                 <TextInput
                 placeholder = "Correo Electrónico"
-                style = {styles.input}/>
-
-     
+                style = {styles.input}
+                onChangeText = {(text) =>setWorker({...worker,email:text})}/>
 
                 <TextInput
                 style = {styles.input}
-                placeholder = "Teléfono"/>
+                placeholder = "Teléfono"
+                onChangeText = {(text) =>setWorker({...worker,phone:text})}/>
             
                 <TextInput
                 style = {styles.input}
-                placeholder = "Dirección Laboral"/>
+                placeholder = "Dirección Laboral"
+                onChangeText = {(text) =>setWorker({...worker,address:text})}/>
+
+                <TextInput
+                style = {styles.input}
+                placeholder = "Precio Base Servicio"
+                keyboardType = 'numeric'
+                onChangeText = {(text) =>setWorker({...worker,price:text})}/>
 
                 <TextInput 
                 placeholder= "Contraseña"
-                style = {styles.input}/>
+                style = {styles.input}
+                onChangeText = {(text) =>setWorker({...worker,password:text})}/>
 
                 <TextInput 
                 placeholder= "Confirmar Contraseña"
-                style = {styles.input}/>
+                style = {styles.input}
+                onChangeText = {(text) =>setWorker({...worker,passwordConf:text})}/>
 
+                <TouchableOpacity  >
                 <Button title ="Registrarse"
                 color = "#1bb2d1"
                 style={{height:100}}
+                onPress={addWorker}
+                
+               
                 />
+                </TouchableOpacity>
 
-
-
-             
-            
+            </ScrollView>
         </View>
     )
 }
@@ -69,7 +102,8 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         height: '100%',
         width: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop:30
     },
     infoRow: {
         display: 'flex',

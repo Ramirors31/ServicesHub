@@ -12,10 +12,11 @@ import {
   } from '@expo-google-fonts/inter'
 import { useFonts } from '@expo-google-fonts/andika';
 import AppLoading from 'expo-app-loading';
-import History from './History';
 import PlumbersMenuCard from '../components/PlumbersMenuCard';
 import LocksmithMenuCard from '../components/LocksmithMenuCard';
 import ElectricianMenuCard from '../components/ElectricianMenuCard';
+import ServiceCard from '../components/ServiceCard';
+import Navbar from '../components/Navbar';
 
 
 const Home = (props) => {
@@ -32,10 +33,12 @@ const Home = (props) => {
     }
     return(
     <ScrollView style ={styles.container}>
-        <Text style={{fontFamily:"Inter_600SemiBold", fontSize:20, marginBottom:20}}>¿Qué tipo de servicio buscas?</Text>
-        <PlumbersMenuCard/>
-        <LocksmithMenuCard/>
-        <ElectricianMenuCard/>
+        <Navbar navigation = {props.navigation}/>
+        <Text style={{fontWeight: 'bold', fontSize:20, marginBottom:20, alignSelf:'center'}}>Departamentos</Text>
+        <PlumbersMenuCard navigation = {props.navigation}/>
+        <LocksmithMenuCard navigation = {props.navigation}/>
+        <ElectricianMenuCard navigation = {props.navigation}/>
+        
         
     </ScrollView>
     )
@@ -46,7 +49,8 @@ const styles = StyleSheet.create({
         padding: 10,
         flex:1,
         flexDirection:'column',
-        height:'100%'
+        height:'100%',
+        marginTop:30
     }
 })
 

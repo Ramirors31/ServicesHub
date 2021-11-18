@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import WorkerCard from '../components/WorkerCard'
+import WorkerCard from '../components/WorkerCard';
 import  { db } from '../database/firebase';
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from 'react';
@@ -10,7 +10,7 @@ let trabajadores = []
 
 
 
-const PlumbersMenu = () => {
+const PlumbersMenu = (props) => {
     const [workers,setWorkers] = useState([])
 
 
@@ -42,19 +42,15 @@ const PlumbersMenu = () => {
   
 
     return (
-        <View>
-            <Text style = {{fontSize: 24, alignSelf:'center'}}> Plomeria  </Text>
+        <View style= {styles.container}>
+            <Text style = {{fontSize: 32, fontWeight: 'bold'}}> Plomeria  </Text>
 
-            <WorkerCard/>
-            
-            
-  
-
+            <WorkerCard navigation = {props.navigation}/>
             
         </View>
     )
 
-
+}
 const styles = StyleSheet.create({
     container: {
         padding: 10,
@@ -62,9 +58,9 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         height: '100%',
         width: '100%',
+        marginTop:30
     }
-})}
-
+})
 
 
 
