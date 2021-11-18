@@ -7,17 +7,22 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 
 const HomeWorkers = (props) => {
+
+    //OBTENEMOS LA INFORMACION DESDE LA BASE DE DATOS
     const cities = [];
+    //ESTADO DONDE SE GUARDAN LOS DAOS
     const [services, setServices] = useState([])
     const q = query(collection(db, "cita"), where("worker_id", "==", "16mWfHjk7JCBXHodgJ7f"));
+    //FUNCION PARA ESCUCHAR CAMBIOS
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
         cities.push(doc.data());
+        //ACTUALIZAMOS EL ESTADO
         setServices(cities)
     });
 
 });
-
+    //FUNCION A LA ESCUCHA
     unsubscribe()
 
     
@@ -30,6 +35,7 @@ const HomeWorkers = (props) => {
             <ScrollView>
                 <Text style = {{ fontSize: 24, fontWeight:'bold'}}>Citas Pendientes</Text>
                 {
+                    //OBTENEMOS TODOS LOS OBJETOS GUARDADOS EN EL ESTADO Y SE LOS PASAMOS AL COMPONENTE EN FORMA DE PROPS
                     services.map(service => (
                         <ServiceCard userid={service.user_id} 
                         key = {"service"}

@@ -37,9 +37,13 @@ const MyStack = () => {
       <Stack.Screen name = "HistorialClientes" component = {HistorialClientes} options = {{title:'', headerShown:false}}/>
       <Stack.Screen name = "DetallesCita" component = {DetallesCita} options = {{title: '', headerShown:false}}/>
       <Stack.Screen name = "AgendarServicio" component = {AgendarServicio} options={{title:'', headerShown:false}}    
-      
+      <Stack.Screen name = "HomeWorkers" component = {HomeWorkers} options = {{title:'',headerShown:false}}/>
+      <Stack.Screen name = "AgendarServicio" component = {AgendarServicio} options={{title:'', headerShown:false}}  />
       <Stack.Screen name = "LoginWorker" component = {LoginWorker} options = {{title:'', headerShown:false}}/> */}
       <Stack.Screen name = "HomeWorkers" component = {HomeWorkers} options = {{title:'',headerShown:false}}/>
+      <Stack.Screen name = "DetallesCita" component = {DetallesCita} options = {{title: '', headerShown:false}}/>
+
+      
       
         
             

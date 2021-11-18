@@ -12,7 +12,9 @@ import { doc, getDoc } from "firebase/firestore";
 
 
 const ServiceCard = (props) => {
+    
 
+    //ESTADO PARA GUARDAR NOMBRE DEL USUARIO QUE HIZO LA CITA
     const [userInfo, setUserInfo] = useState([])
 
     //OBTENER NOMBRE DE USUARIO QUE HIZO LA CITA.
@@ -23,8 +25,9 @@ const docRef = doc(db, "user", props.userid);
 const docSnap = await getDoc(docRef);
 
 if (docSnap.exists()) {
+    //GUARDAMOS LA INFORMACION OBTENIDA EN EL ESTADO
     setUserInfo(docSnap.data())
-  console.log("Document data:", userInfo);
+ 
 } else {
   // doc.data() will be undefined in this case
   console.log("No such document!");
@@ -35,6 +38,7 @@ if (docSnap.exists()) {
     return (
         <View style={styles.cardContainer}>
             <View style = {styles.informationContainer}>
+                {/*ASIGNAMOS EL VALOR DE TEXTO CORRESPONDIENTE A CADA CAMPO*/}
                 <Text style = {{fontWeight:'bold',fontSize:24, marginBottom:5}}>{userInfo.nombre_user}</Text>
                 <Text style = {{fontWeight:'bold', marginBottom: 5}}>{props.ubicacion}</Text>
                 <Text style = {{fontWeight:'bold', marginBottom:5}}>{props.status} </Text>

@@ -2,10 +2,22 @@ import React from 'react'
 import { View, Text,Button, StyleSheet, TextInput,Image, ScrollView, Alert } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { useState } from 'react'
+import {db} from '../database/firebase'
+import { doc,setDoc,addDoc,collection,updateDoc} from '@firebase/firestore'
+
 const AgendarServicio = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState('');
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  //---//
+  const [desc, setDesc] = useState('');
+  const [address, setAddress] = useState('');
+  const [time, setTime] = useState('');
+  const [server, setServer] = useState('Juan Sánchez');
+  const [servicio, setServicio] = useState('Plomeria');
+  const infoDate = {
+    server, servicio, desc, date, time, address
+  }
 
   const createAlert = () =>
   Alert.alert(
@@ -19,21 +31,51 @@ const AgendarServicio = () => {
     ]
   );
 
+  const handlessDate = () =>{
+    if(server!=''&&servicio!=''&&desc!=''&&date!=''
+    &&time!=''&&address!=''){
+      console.log(infoDate)
+      addCita()
+      alert('Cita Agendada Correctamente')
+  
+    }else{
+      alert('Debes llenar todos los campos')
+    }
+   
+  }
+
+  const addCita = async () => {
+
+    const docRef = await addDoc(collection(db, "cita"), {
+
+      trabajador: server,
+      servicio: servicio,
+      descripcion: desc,
+      fecha: date,
+      hora: time,
+      direccion: address,
+      status:'Pendiente'
+    });
+    const citaRef = doc(db, "cita", docRef.id)
+    await updateDoc(citaRef, {
+        cita_id:docRef.id
+      });
+    clearFields()
+  }
+
+  const clearFields = () => {
+    setDesc('')
+    setDate('')
+    setTime('')
+    setAddress('')
+}
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+    setDate(currentDate.getDay);
 
-    let tempDate = new Date(currentDate)
-    let fDate = tempDate.getDate() +  (tempDate.getMonth() + 1)  + tempDate.getFullYear();
-    let fTime = tempDate.getHours() + ':' + tempDate.getMinutes()
-    fDate.toString()
-    console.log(fDate)
-
-
-
-
-    console.log(date)
+    console.log(date.getDay)
   };
 
   const showMode = (currentMode) => {
@@ -58,42 +100,47 @@ const AgendarServicio = () => {
       source = {require('../assets/icono-calendario.png')}
       style = {styles.image}/>
       <Text style = {styles.informationText}>Servidor:</Text>
-      <Text style = {styles.inputText}>Juan Sánchez</Text>
+      <Text style = {styles.inputText} >{infoDate.server}</Text>
       <Text style = {styles.informationText}>Departamento: </Text>
-      <Text style = {styles.inputText}>Plomería </Text>
+      <Text style = {styles.inputText}>{infoDate.servicio}</Text>
       <Text style = {styles.informationText}>Descripción de Problema: </Text>
       <TextInput style = {styles.inputText}
       placeholder = "Breve descripción de su problema"
+      onChangeText={text => setDesc(text)}
+      value = {desc}
       multiline= {true}/>
       <Text style = {styles.informationText}>Seleccione una fecha </Text>
-        <TextInput onFocus={showDatepicker}
-         placeholder="17/11/2021" 
+        <TextInput 
+         placeholder="DD/MM/AAAA" 
          style = {styles.inputText}
-         value = {"Hola"}
-         showSoftInputOnFocus={false}
+         onChangeText = {text => setDate(text)}
+         value = {date}
          />
          <Text style = {styles.informationText}>Seleccione una hora </Text>
   
-        <TextInput onFocus={showTimepicker}
+        <TextInput 
          placeholder="13:00" 
          style = {styles.inputText}
-         showSoftInputOnFocus={false}
-         is24Hour = {true}
-         />
+         onChangeText = {text => setTime(text)}
+         value = {time}
+       
+        />
 
         <Text style = {styles.informationText}>Especifique Su Dirección</Text>
   
         <TextInput 
         placeholder="Av. Las Puentes 512 San Nicolás de los Garza" 
         style = {styles.inputText}
+        onChangeText ={text => setAddress(text)}
+        value = {address}
         />
-
-
         <View style = {styles.btn}>
         <Button
         color = "#1bb2d1"
         title = 'Agendar'
-        onPress = {createAlert}/>
+        //onPress = {createAlert}
+        onPress = {handlessDate}
+        />
         </View>
 
       {show && (
