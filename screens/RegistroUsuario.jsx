@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Image, Ale
 import TipoRegistroSelecter from '../components/TipoRegistroSelecter'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {db} from '../database/firebase'
+import {addDoc,collection, doc, setDoc} from '@firebase/firestore'
 
 const RegistroUsuario = (props) => {
 
@@ -20,15 +21,14 @@ const RegistroUsuario = (props) => {
 
     const manageButton = () =>{
         handlesSingUp()
-        addUser()
         clearFields()
         registrarUsuario()
-        registroExitoso()
+        
     }
 
-    const addUser = async () => {
+    const addUser = async (userId) => {
 
-        const docRef = await addDoc(collection(db, "user"), {
+        await setDoc(doc(db, "user",userId), {
 
         nombre_user: userInfo.name,
         telefono_user: userInfo.phone,
@@ -47,7 +47,8 @@ const RegistroUsuario = (props) => {
         passwordConf:'',
         phone:'',
         price:'',
-        name:''
+        name:'',
+        id:''
     })
     }
 
@@ -59,12 +60,13 @@ const RegistroUsuario = (props) => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        addUser(user.uid)
+        registroExitoso()
         
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        alert('No email valid, verifica que sea un correo valido\nexample@hub.com')
         // ..
       });
         }
@@ -87,16 +89,14 @@ const RegistroUsuario = (props) => {
         && userInfo.phone == '' && userInfo.pass == ''
         && userInfo.confPass == ''){
             alert('Debes llenar todos los campos')
-        }else if (userInfo.email == '' || !userInfo.email.includes('@') || !userInfo.email.includes(".")){
-            alert('No email valid, verifica que sea un correo valido\nexample@hub.com')
         }else if (userInfo.name == ''){
-            alert('No name')
+            alert('Debes llenar todos los campos')
         }else if (userInfo.phone == ''){
-            alert('No phone')
+            alert('Debes llenar todos los campos')
         }else if (userInfo.pass == ''){
-            alert('No password')
+            alert('Debes llenar todos los campos')
         }else if ( userInfo.confPass == ''){
-            alert('No password confirmation')
+            alert('Debes llenar todos los campos')
         }else{
             if (userInfo.pass == userInfo.confPass){
                 console.log(userInfo)
@@ -128,6 +128,12 @@ const RegistroUsuario = (props) => {
                 style = {styles.input}
                 value = {userInfo.name}
                 onChangeText = {text => setUserInfo({...userInfo,name:text})}/>
+                  
+                <TextInput 
+                placeholder= "Dirección"
+                style = {styles.input}
+                value = {userInfo.address}
+                onChangeText = {text => setUserInfo({...userInfo,address:text})}/>
 
                 <TextInput
                 placeholder = "Celular"
