@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, StyleSheet,Image, Button } from 'react-native'
 import { 
     Inter_100Thin,
@@ -7,33 +7,44 @@ import {
   } from '@expo-google-fonts/inter'
 import { useFonts } from '@expo-google-fonts/andika';
 import AppLoading from 'expo-app-loading';
+import { db } from '../database/firebase';
+import { doc, getDoc } from "firebase/firestore";
 
 
 const ServiceCard = (props) => {
 
-    let[fontsLoaded, error] = useFonts({
-        Inter_100Thin,
-        Inter_200ExtraLight,
-        Inter_300Light,Inter_400Regular,Inter_500Medium,Inter_600SemiBold,Inter_700Bold,Inter_800ExtraBold,Inter_900Black
-    });
+    const [userInfo, setUserInfo] = useState([])
 
-    if(!fontsLoaded){
-        return <AppLoading/>
-    }
+    //OBTENER NOMBRE DE USUARIO QUE HIZO LA CITA.
+   
+const getUser = async() => {
+
+const docRef = doc(db, "user", props.userid);
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+    setUserInfo(docSnap.data())
+  console.log("Document data:", userInfo);
+} else {
+  // doc.data() will be undefined in this case
+  console.log("No such document!");
+}
+}
+
 
     return (
         <View style={styles.cardContainer}>
             <View style = {styles.informationContainer}>
-                <Text style = {{fontFamily :'Intern_700Bold' ,fontSize:24, marginBottom:5}}>Jose Suarez</Text>
-                <Text style = {{fontFamily: 'Inter_400Regular', marginBottom: 5}}>Av. Las puentes #200</Text>
-                <Text style = {{fontFamily: 'Inter_400Regular', marginBottom:5}}>Estado: Pendiente </Text>
+                <Text style = {{fontWeight:'bold',fontSize:24, marginBottom:5}}>{userInfo.nombre_user}</Text>
+                <Text style = {{fontWeight:'bold', marginBottom: 5}}>{props.ubicacion}</Text>
+                <Text style = {{fontWeight:'bold', marginBottom:5}}>{props.status} </Text>
                 <Button title = "Ver Detalles" 
                 color = '#20f26f'
                 onPress = {() => props.navigation.navigate('DetallesCita')}/> 
             </View>   
             <View style={{justifyContent:'center',width:'50%'}}>
 
-            <Text style={{fontFamily:'roboto', alignSelf:'center',marginRight:5,fontWeight:'bold',fontSize:18}}>$300</Text>
+            <Text style={{alignSelf:'center',marginRight:5,fontWeight:'bold',fontSize:18}}>{props.costo}</Text>
             </View>
         </View>
     
